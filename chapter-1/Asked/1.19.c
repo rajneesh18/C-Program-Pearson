@@ -54,5 +54,5 @@ void reverse(char s[]){
  * India is great
  * 
  * Output:
- * taerg si aidna
+ * taerg si aidnI
 */
