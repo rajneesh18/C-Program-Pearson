@@ -4,9 +4,6 @@
  * C comments do not nest.
 */
 #include<stdio.h>
-#define IN 1
-#define OUT 0
-
 void rcomment(int c);
 void incomment(void);
 
@@ -23,13 +20,22 @@ void rcomment(int c){
         if((d = getchar()) == '*'){
             incomment();
         }else if(d == '/'){
-            rcomment(d);
+            x:
+            if(d == '\n' || d == '\0' || d == EOF){
+                putchar('\n');
+            }else{
+                d = getchar();
+                goto x;
+            }
         }else{
             putchar(c);
             putchar(d);
         }
     }else if(c == '"' || c == '\''){
-        //code
+        putchar(c);
+        while((d = getchar()) != c){
+            putchar(d);
+        }
     }else{
         putchar(c);
     }
