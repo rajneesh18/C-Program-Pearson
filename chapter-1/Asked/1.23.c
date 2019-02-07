@@ -40,6 +40,7 @@ void rcomment(int c){
                 putchar(getchar());
             }
         }
+        putchar(c);
     }else{
         putchar(c);
     }
