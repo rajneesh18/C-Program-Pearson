@@ -7,7 +7,7 @@
 #define IN 1
 #define OUT 0
 
-void rcomment(int c);
+void readcomment(int c);
 void incomment(void);
 
 int main(){
@@ -23,7 +23,13 @@ void rcomment(int c){
         if((d = getchar()) == '*'){
             incomment();
         }else if(d == '/'){
-            rcomment(d);
+            // rcomment(d);
+            // for(;((d = getchar()) != EOF && (d == '\n' || d == '\0'));)
+            d = getchar();
+            // putchar(d);
+            while(d != EOF || d != '\n' || d != '\0'){
+                d = getchar();
+            }
         }else{
             putchar(c);
             putchar(d);
