@@ -4,10 +4,7 @@
  * C comments do not nest.
 */
 #include<stdio.h>
-#define IN 1
-#define OUT 0
-
-void readcomment(int c);
+void rcomment(int c);
 void incomment(void);
 
 int main(){
@@ -15,6 +12,7 @@ int main(){
     while((c = getchar()) != EOF){
         rcomment(c);
     }
+    return 0;
 }
 
 void rcomment(int c){
@@ -22,24 +20,32 @@ void rcomment(int c){
     if(c == '/'){
         if((d = getchar()) == '*'){
             incomment();
-        }else if(d == '/'){
-            // rcomment(d);
-            // for(;((d = getchar()) != EOF && (d == '\n' || d == '\0'));)
-            d = getchar();
-            // putchar(d);
-            while(d != EOF || d != '\n' || d != '\0'){
+        }else if(d == '/'){               /* This block is for removing single line comments */
+            x:
+            if(d == '\n' || d == '\0' || d == EOF){
+                putchar('\n');
+            }else{
                 d = getchar();
+                goto x;
             }
         }else{
             putchar(c);
             putchar(d);
         }
-    }else if(c == '"' || c == '\''){
-        //code
+    }else if(c == '"' || c == '\''){        /* This will handle the quoted strings and character constants properly. */
+        putchar(c);
+        while((d = getchar()) != c){
+            putchar(d);
+            if(d == '\\'){
+                putchar(getchar());
+            }
+        }
+        putchar(c);
     }else{
         putchar(c);
     }
 }
+/* incomment: to remove multiple line comments */
 void incomment(){
     int c,d;
     c = getchar();
